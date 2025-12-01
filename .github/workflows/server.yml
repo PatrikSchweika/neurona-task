@@ -17,13 +17,13 @@ jobs:
         with:
           dotnet-version: '9.0.x'
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore Server/NeuronaTask.sln
 
       - name: Format
-        run: dotnet format Server/Server.sln --verify-no-changes --severity warn
+        run: dotnet format Server/NeuronaTask.sln --verify-no-changes --severity warn
 
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build Server/NeuronaTask.sln --no-restore
 
       - name: Test
         run: dotnet test Server/NeuronaTask.sln --no-build --verbosity normal
