@@ -7,10 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "format": "eslint --fix"
+    "format": "eslint --fix",
+    "codegen": "graphql-codegen"
   },
   "dependencies": {
+    "@apollo/client": "^4.0.9",
+    "@apollo/client-integration-nextjs": "^0.14.1",
     "antd": "^6.0.0",
+    "graphql": "^16.12.0",
     "next": "16.0.6",
     "react": "19.2.0",
     "react-dom": "19.2.0"
