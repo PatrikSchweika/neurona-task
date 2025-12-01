@@ -9,7 +9,6 @@ public static class DiagnosisMapping
         return new Diagnosis
         {
             Id = diagnosis.Id,
-            PatientId = diagnosis.PatientId,
             Date = diagnosis.Date,
             Description = diagnosis.Description,
             ImageUrl = diagnosis.ImageUrl

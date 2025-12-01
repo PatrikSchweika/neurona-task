@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using NeuronaTask.Server.Data.Entities;
 
 namespace NeuronaTask.Server.Data;

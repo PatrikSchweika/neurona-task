@@ -15,6 +15,7 @@ public class Query
     public IQueryable<PatientListItem> GetPatients(AppDbContext context)
     {
         return context.Patients
+            .Include(patient => patient.Diagnoses)
             .Select(patient => patient.ToListItem())
             .AsQueryable();
     }
