@@ -24,16 +24,16 @@ services:
     depends_on:
       - db
 
-#  frontend:
-#    build:
-#      context: ./client
-#      dockerfile: Dockerfile
-#    ports:
-#      - "3000:3000"
-#    environment:
-#      - NEXT_PUBLIC_GRAPHQL_URI=http://backend:8080/graphql
-#    depends_on:
-#      - backend
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_GRAPHQL_URI=http://backend:8080/graphql
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
