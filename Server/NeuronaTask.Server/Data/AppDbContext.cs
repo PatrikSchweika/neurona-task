@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
 using NeuronaTask.Server.Data.Entities;
-using NeuronaTask.Server.GraphQL;
 
 namespace NeuronaTask.Server.Data;
 
