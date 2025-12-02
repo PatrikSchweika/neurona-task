@@ -11,16 +11,26 @@ namespace NeuronaTask.Server.GraphQL;
 public class Mutation
 {
     public async Task<PatientDetail> AddPatient(
-        string name,
-        int age,
+        PatientCreate patientDto,
         AppDbContext context)
     {
         var patient = new PatientDb
         {
             Id = 0,
-            Name = name,
-            Age = age,
-            Diagnoses = []
+            Name = patientDto.Name,
+            Age = patientDto.Age,
+            Diagnoses = patientDto.Diagnoses
+                .Select(diagnosis => new DiagnosisDb
+                {
+                    Id = 0,
+                    PatientId = 0,
+
+                    Date = diagnosis.Date,
+                    Title = diagnosis.Title,
+                    Description = diagnosis.Description,
+                    ImageUrl = diagnosis.ImageUrl
+                })
+                .ToList()
         };
 
         var result = context.Patients.Add(patient);
@@ -60,6 +70,7 @@ public class Mutation
             {
                 Id = 0,
                 Date = diagnosis.Date,
+                Title = diagnosis.Title,
                 Description = diagnosis.Description,
                 ImageUrl = diagnosis.ImageUrl,
                 PatientId = patientId

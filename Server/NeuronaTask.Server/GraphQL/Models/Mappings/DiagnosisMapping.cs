@@ -10,6 +10,7 @@ public static class DiagnosisMapping
         {
             Id = diagnosis.Id,
             Date = diagnosis.Date,
+            Title = diagnosis.Title,
             Description = diagnosis.Description,
             ImageUrl = diagnosis.ImageUrl
         };

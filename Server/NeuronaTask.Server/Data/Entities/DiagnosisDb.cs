@@ -6,6 +6,7 @@ public record DiagnosisDb
     public required int PatientId { get; init; }
 
     public required DateTime Date { get; set; }
+    public required string Title { get; init; }
     public required string Description { get; set; }
     public string? ImageUrl { get; set; }
 }
