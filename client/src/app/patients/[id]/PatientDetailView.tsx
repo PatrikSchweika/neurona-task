@@ -4,9 +4,9 @@ import {usePatient} from "@/src/graphql/queries/patients";
 import {useRouter} from "next/navigation";
 import dayjs from "dayjs";
 import {CloseOutlined, DownOutlined, UpOutlined} from "@ant-design/icons";
-import {Diagnosis} from "@/src/graphql/types/diagnosis";
 import {useState} from "react";
 import Image from "next/image"
+import {Diagnosis} from "@/src/graphql/__generated__/graphql";
 
 interface PatientDetailViewProps {
     patientId: number

@@ -1,7 +1,7 @@
 ﻿"use client";
 
-import {PatientListItem} from "@/src/graphql/types/patient";
 import { useRouter } from "next/navigation";
+import {PatientListItem} from "@/src/graphql/__generated__/graphql";
 
 interface PatientListProps {
     data: PatientListItem[]
