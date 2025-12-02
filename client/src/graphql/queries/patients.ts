@@ -19,6 +19,7 @@ const PATIENTS_QUERY: TypedDocumentNode<PatientsQuery, PatientsQueryVariables> =
         lastDiagnosis {
           id
           date
+          title  
           description
           imageUrl
         }
@@ -47,6 +48,7 @@ const PATIENT_QUERY: TypedDocumentNode<PatientQuery, PatientQueryVariables> = gq
         diagnoses {
           id
           date
+          title
           description
           imageUrl
         }

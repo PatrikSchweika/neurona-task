@@ -13,5 +13,5 @@ export interface PatientDetail {
     id: number
     name: string
     age: number
-    diagnonses: Diagnosis[]
+    diagnoses: Diagnosis[]
 }

@@ -1,4 +1,4 @@
-﻿import {PatientDetailView} from "@/src/components/PatientDetailView";
+﻿import {PatientDetailView} from "@/src/app/patients/[id]/PatientDetailView";
 
 interface PatientDetailPageProps {
     params: Promise<{
@@ -10,6 +10,6 @@ export default async function PatientDetailPage({ params }: PatientDetailPagePro
     const { id } = await params
 
     return (
-        <PatientDetailView patientId={id} />
+        <PatientDetailView patientId={Number(id)} />
     )
 }
