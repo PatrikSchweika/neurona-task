@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
     // todo: change styles to tailwind classes
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
       >
