@@ -1,7 +1,11 @@
+using FluentValidation;
+
 using Microsoft.EntityFrameworkCore;
 
 using NeuronaTask.Server.Data;
 using NeuronaTask.Server.GraphQL;
+using NeuronaTask.Server.GraphQL.Filters;
+using NeuronaTask.Server.GraphQL.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +18,12 @@ builder.Services
     .AddMutationType<Mutation>()
     .AddProjections()
     .AddFiltering()
-    .AddSorting();
+    .AddSorting()
+    .AddErrorFilter<ValidationFilter>();
 
 builder.Services.AddCors(o => o.AddPolicy("AllowAll", b => b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
+builder.Services.AddValidatorsFromAssemblyContaining<PatientCreateValidator>();
 
 var app = builder.Build();
 

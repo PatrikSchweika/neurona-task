@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
+
+using Microsoft.EntityFrameworkCore;
 
 using NeuronaTask.Server.Data;
 using NeuronaTask.Server.Data.Entities;
@@ -12,8 +14,11 @@ public class Mutation
 {
     public async Task<PatientDetail> AddPatient(
         PatientCreate patientDto,
-        AppDbContext context)
+        AppDbContext context,
+        IValidator<PatientCreate> validator)
     {
+        await validator.ValidateAndThrowAsync(patientDto);
+
         var patient = new PatientDb
         {
             Id = 0,
@@ -41,10 +46,13 @@ public class Mutation
 
     public async Task<IEnumerable<Diagnosis>> UpdateDiagnoses(
         int patientId,
-        IEnumerable<DiagnosisUpdate> diagnoses,
-        AppDbContext context
+        List<DiagnosisUpdate> diagnoses,
+        AppDbContext context,
+        IValidator<IEnumerable<DiagnosisUpdate>> validator
         )
     {
+        await validator.ValidateAndThrowAsync(diagnoses);
+
         var patient = await context.Patients
             .Include(p => p.Diagnoses)
             .AsTracking()
