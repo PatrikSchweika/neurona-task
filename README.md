@@ -2,9 +2,25 @@
 
 ## Introduction
 
+The application is a simple patient management system. 
+It allows users to create patients and add diagnoses to them.
 
+The systems consist of the following libraries:
 
-## How to run a project
+- Database (Postgres)
+- Backend (ASP.NET core)
+  - `HotChocolate` - GraphQL server 
+  - `FluentValidations` - Validation library
+  - `EntityFrameworkCore`- Object Relational Mapping
+- Frontend (Next.js React app)
+  - `TailwindCSS` - CSS framework
+  - `Ant Design` - UI library
+  - `Apollo client` - GraphQL client
+  - `GraphQL Code Generator` - Code generation for GraphQL queries
+
+The whole system can be run locally or in a dockerized environment.
+
+## Setup
 
 ### Database
 
@@ -77,6 +93,14 @@ npm run dev
 ```
 
 5. The client will be available at http://localhost:3000.
+
+#### Updating GraphQL generated types
+
+To update the GraphQL generated types, run the server locally and execute the following command in the `client` directory:
+
+```shell
+npm run codegen
+```
 
 ## How to run a dockerized application
 
