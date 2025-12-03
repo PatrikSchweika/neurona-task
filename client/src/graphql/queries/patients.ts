@@ -1,10 +1,7 @@
-﻿"use client";
-
-import { useQuery } from "@apollo/client/react";
-import { gql, TypedDocumentNode } from "@apollo/client";
+﻿import { gql, TypedDocumentNode } from "@apollo/client";
 import {Query, QueryPatientArgs, QueryPatientsArgs} from "@/src/graphql/__generated__/graphql";
 
-const PATIENTS_QUERY: TypedDocumentNode<Pick<Query, 'patients'>, QueryPatientsArgs> = gql`
+export const PATIENTS_QUERY: TypedDocumentNode<Pick<Query, 'patients'>, QueryPatientsArgs> = gql`
     query Patients {
       patients {
         id
@@ -21,11 +18,9 @@ const PATIENTS_QUERY: TypedDocumentNode<Pick<Query, 'patients'>, QueryPatientsAr
     }
 `
 
-export const usePatients = () => {
-    return useQuery(PATIENTS_QUERY)
-}
 
-const PATIENT_QUERY: TypedDocumentNode<Pick<Query, 'patient'>, QueryPatientArgs> = gql`
+
+export const PATIENT_QUERY: TypedDocumentNode<Pick<Query, 'patient'>, QueryPatientArgs> = gql`
     query Patient($patientId: Int!) {
       patient(patientId: $patientId) {
         id
@@ -42,6 +37,3 @@ const PATIENT_QUERY: TypedDocumentNode<Pick<Query, 'patient'>, QueryPatientArgs>
     }
 `
 
-export const usePatient = (patientId: number) => {
-    return useQuery(PATIENT_QUERY, { variables: { patientId } })
-}

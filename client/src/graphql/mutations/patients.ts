@@ -1,10 +1,7 @@
-﻿"use client";
-
-import {gql, TypedDocumentNode} from "@apollo/client";
-import {useMutation} from "@apollo/client/react";
+﻿import {gql, TypedDocumentNode} from "@apollo/client";
 import {Mutation, MutationAddPatientArgs} from "@/src/graphql/__generated__/graphql";
 
-const ADD_PATIENT: TypedDocumentNode<Pick<Mutation, 'addPatient'>, MutationAddPatientArgs> = gql`
+export const ADD_PATIENT: TypedDocumentNode<Pick<Mutation, 'addPatient'>, MutationAddPatientArgs> = gql`
     mutation AddPatient($patient: PatientCreateInput!) {
         addPatient(patientDto: $patient) {
             id
@@ -21,10 +18,6 @@ const ADD_PATIENT: TypedDocumentNode<Pick<Mutation, 'addPatient'>, MutationAddPa
     }
 `
 
-export const useAddPatient = () => {
-    const [addPatient] = useMutation(ADD_PATIENT)
 
-    return addPatient
-}
 
 // todo: mutation: update patient diagnoses

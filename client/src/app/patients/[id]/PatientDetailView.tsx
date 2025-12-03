@@ -1,27 +1,18 @@
 ﻿"use client";
 
-import {usePatient} from "@/src/graphql/queries/patients";
 import {useRouter} from "next/navigation";
 import dayjs from "dayjs";
 import {CloseOutlined} from "@ant-design/icons";
 import {Button, Descriptions, Table} from "antd";
-import {Diagnosis} from "@/src/graphql/__generated__/graphql";
+import {Diagnosis, PatientDetail} from "@/src/graphql/__generated__/graphql";
 import type {ColumnsType} from "antd/es/table";
 
 interface PatientDetailViewProps {
-    patientId: number
+    patient: PatientDetail
 }
 
-export const PatientDetailView = ({ patientId }: PatientDetailViewProps) => {
-    const { data } = usePatient(patientId)
-
+export function PatientDetailView({ patient }: PatientDetailViewProps) {
     const router = useRouter()
-
-    const patient = data?.patient
-
-    if (!patient) {
-        return <div>Loading...</div>
-    }
 
     const DIAGNOSIS_COLUMNS: ColumnsType<Diagnosis> = [
         {

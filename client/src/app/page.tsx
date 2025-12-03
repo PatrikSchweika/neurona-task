@@ -1,12 +1,9 @@
-"use client";
-
 import {PatientList} from "@/src/app/PatientList";
-import {usePatients} from "@/src/graphql/queries/patients";
+import {query} from "@/src/graphql/setup/apollo-client";
+import {PATIENTS_QUERY} from "@/src/graphql/queries/patients";
 
-export default function Index() {
-  const { data } = usePatients()
-
-  // todo: display loading
+export default async function Index() {
+  const { data } = await query({ query: PATIENTS_QUERY })
 
   return (
       <div className="flex flex-col gap-4">
