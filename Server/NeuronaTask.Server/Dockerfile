@@ -7,15 +7,15 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["NeuronaTask.Server/NeuronaTask.Server.csproj", "NeuronaTask.Server/"]
-RUN dotnet restore "NeuronaTask.Server/NeuronaTask.Server.csproj"
+COPY ["NeuronaTask.Server.csproj", "."]
+RUN dotnet restore "NeuronaTask.Server.csproj"
 COPY . .
-WORKDIR "/src/NeuronaTask.Server"
-RUN dotnet build "./NeuronaTask.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+RUN dotnet build "NeuronaTask.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./NeuronaTask.Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "NeuronaTask.Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
