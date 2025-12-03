@@ -7,7 +7,6 @@ import {CloseOutlined} from "@ant-design/icons";
 import {Button, Descriptions, Table} from "antd";
 import {Diagnosis} from "@/src/graphql/__generated__/graphql";
 import type {ColumnsType} from "antd/es/table";
-import Image from "next/image";
 
 interface PatientDetailViewProps {
     patientId: number

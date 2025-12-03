@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import {ApolloWrapper} from "@/src/graphql/setup/ApolloWrapper";
 import Link from "next/link";
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,9 +39,11 @@ export default function RootLayout({
 
           <main className="flex-1 p-6 bg-gray-100">
               <ApolloWrapper>
+                  <AntdRegistry>
                       <div className="w-full lg:max-w-[75%] mx-auto">
                           {children}
                       </div>
+                  </AntdRegistry>
               </ApolloWrapper>
           </main>
       </div>
