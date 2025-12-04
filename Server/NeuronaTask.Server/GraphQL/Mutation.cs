@@ -63,9 +63,17 @@ public class Mutation
             throw new PatientNotFoundException(patientId);
         }
 
-        var diagnosesToAdd = diagnoses.Where(diagnosis => !diagnosis.Id.HasValue);
-        var diagnosesToUpdate = diagnoses.Where(diagnosis => diagnosis.Id.HasValue && patient.Diagnoses.Any(d => d.Id == diagnosis.Id.Value));
-        var diagnosesToRemove = patient.Diagnoses.Where(diagnosis => diagnosesToUpdate.All(diagnosisUpdate => diagnosisUpdate.Id != diagnosis.Id));
+        var diagnosesToAdd = diagnoses
+            .Where(diagnosis => !diagnosis.Id.HasValue)
+            .ToList();
+        
+        var diagnosesToUpdate = diagnoses
+            .Where(diagnosis => diagnosis.Id.HasValue && patient.Diagnoses.Any(d => d.Id == diagnosis.Id.Value))
+            .ToList();
+        
+        var diagnosesToRemove = patient.Diagnoses
+            .Where(diagnosis => diagnosesToUpdate.All(diagnosisUpdate => diagnosisUpdate.Id != diagnosis.Id))
+            .ToList();
 
         foreach (var diagnosis in diagnosesToRemove)
         {
