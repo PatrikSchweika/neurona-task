@@ -8,6 +8,6 @@ export const ADD_PATIENT_SCHEMA = z.object({
         title: z.string().trim().nonempty({ error: 'Title is required' }),
         description: z.string().trim().nonempty({ error: 'Description is required' }),
         imageUrl: z.string().nullish(),
-        date: z.iso.date()
+        date: z.iso.datetime()
     }))
 }) satisfies z.ZodType<PatientCreateInput>

@@ -17,6 +17,8 @@ The systems consist of the following libraries:
   - `Ant Design` - UI library
   - `Apollo client` - GraphQL client
   - `GraphQL Code Generator` - Code generation for GraphQL queries
+  - `Zod` - Type validation library
+  - `React hook form` - Form library
 
 The whole system can be run locally or in a dockerized environment.
 

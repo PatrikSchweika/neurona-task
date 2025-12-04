@@ -16,7 +16,7 @@ export default function Index() {
               <Button
                   className="mx-auto"
                   type="primary"
-                  href="/patients"
+                  href="/addPatient"
                   shape="round"
                   icon={<PlusOutlined />}
                   size="large"
