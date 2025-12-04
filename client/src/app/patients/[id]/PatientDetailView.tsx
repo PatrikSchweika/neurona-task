@@ -1,20 +1,42 @@
 ﻿"use client";
 
+import {usePatient} from "@/src/graphql/queries/hooks";
 import {useRouter} from "next/navigation";
 import dayjs from "dayjs";
-import {CloseOutlined} from "@ant-design/icons";
-import {Button, Descriptions, Table} from "antd";
-import {Diagnosis, PatientDetail} from "@/src/graphql/__generated__/graphql";
+import {CloseOutlined, DeleteOutlined} from "@ant-design/icons";
+import {Button, Descriptions, Skeleton, Table} from "antd";
+import {Diagnosis} from "@/src/graphql/__generated__/graphql";
 import type {ColumnsType} from "antd/es/table";
+import {useUpdateDiagnoses} from "@/src/graphql/mutations/hooks";
 
 interface PatientDetailViewProps {
-    patient: PatientDetail
+    patientId: number
 }
 
-export function PatientDetailView({ patient }: PatientDetailViewProps) {
+export const PatientDetailView = ({ patientId }: PatientDetailViewProps) => {
+    const { data, loading } = usePatient(patientId)
+    const updateDiagnoses = useUpdateDiagnoses()
+
+
     const router = useRouter()
 
-    const DIAGNOSIS_COLUMNS: ColumnsType<Diagnosis> = [
+    const patient = data?.patient
+
+    const handleDeleteDiagnosis = async (diagnosis: Diagnosis) => {
+        if (!patient) {
+            return
+        }
+
+        const newDiagnoses = patient.diagnoses
+            .filter(d => d.id !== diagnosis.id)
+            .map(({ __typename, ...diagnosis }) => ({
+                ...diagnosis
+            }))
+
+        await updateDiagnoses({ variables: { patientId: patient.id, diagnoses: newDiagnoses }})
+    }
+
+    const diagnosisColumns: ColumnsType<Diagnosis> = [
         {
             title: 'Diagnosis',
             dataIndex: 'title',
@@ -25,8 +47,13 @@ export function PatientDetailView({ patient }: PatientDetailViewProps) {
             dataIndex: 'date',
             key: 'date',
             render: (date) => dayjs(date).format("DD.MM.YYYY HH:mm:ss"),
-            sorter: (a, b) => dayjs(a.date as string).unix() - dayjs(b.date as string).unix(),
+            sorter: (a, b) => dayjs(a.date).unix() - dayjs(b.date).unix(),
             defaultSortOrder: 'descend'
+        },
+        {
+            title: 'Actions',
+            key: 'actions',
+            render: (_, diagnosis) => <DeleteOutlined onClick={() => handleDeleteDiagnosis(diagnosis)} className="cursor-pointer" />,
         }
     ];
 
@@ -46,8 +73,8 @@ export function PatientDetailView({ patient }: PatientDetailViewProps) {
                 </div>
 
                 <Descriptions bordered column={1} className="mb-8">
-                    <Descriptions.Item label="Full name">{patient.name}</Descriptions.Item>
-                    <Descriptions.Item label="Age">{patient.age}</Descriptions.Item>
+                    <Descriptions.Item label="Full name">{loading ? <Skeleton /> : patient?.name}</Descriptions.Item>
+                    <Descriptions.Item label="Age">{loading ? <Skeleton /> : patient?.age}</Descriptions.Item>
                 </Descriptions>
 
                 <h4 className="mt-4 text-md font-medium text-gray-900 mb-4">Diagnoses</h4>
@@ -55,8 +82,9 @@ export function PatientDetailView({ patient }: PatientDetailViewProps) {
                 <Table
                     className="mt-4"
                     rowKey="id"
-                    columns={DIAGNOSIS_COLUMNS}
-                    dataSource={patient.diagnoses ?? []}
+                    columns={diagnosisColumns}
+                    dataSource={patient?.diagnoses ?? []}
+                    loading={loading}
                     bordered
                     pagination={false}
                     expandable={{

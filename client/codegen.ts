@@ -37,6 +37,9 @@ const config: CodegenConfig = {
         "./src/graphql/__generated__/graphql.ts": {
             plugins: ["typescript", "typescript-operations"],
             config: {
+                scalars: {
+                  DateTime: "string",
+                },
                 avoidOptionals: {
                     field: true,
                     inputValue: false,

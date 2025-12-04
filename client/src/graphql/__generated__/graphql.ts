@@ -12,7 +12,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  DateTime: { input: unknown; output: unknown; }
+  DateTime: { input: string; output: string; }
 };
 
 export type DateTimeOperationFilterInput = {
@@ -185,6 +185,14 @@ export type AddPatientMutationVariables = Exact<{
 
 
 export type AddPatientMutation = { addPatient: { __typename: 'PatientDetail', id: number, name: string, age: number, diagnoses: Array<{ __typename: 'Diagnosis', id: number, date: unknown, title: string, description: string, imageUrl: string | null }> } };
+
+export type UpdateDiagnosesMutationVariables = Exact<{
+  diagnoses: Array<DiagnosisUpdateInput> | DiagnosisUpdateInput;
+  patientId: Scalars['Int']['input'];
+}>;
+
+
+export type UpdateDiagnosesMutation = { updateDiagnoses: Array<{ __typename: 'Diagnosis', id: number, date: unknown, title: string, description: string, imageUrl: string | null }> };
 
 export type PatientsQueryVariables = Exact<{ [key: string]: never; }>;
 

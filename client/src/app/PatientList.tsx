@@ -7,6 +7,7 @@ import type {ColumnsType} from "antd/es/table";
 
 interface PatientListProps {
     data: PatientListItem[]
+    loading?: boolean
 }
 
 const COLUMNS: ColumnsType<PatientListItem> = [
@@ -30,7 +31,7 @@ const COLUMNS: ColumnsType<PatientListItem> = [
     }
 ];
 
-export const PatientList = ({ data }: PatientListProps) => {
+export const PatientList = ({ data, loading }: PatientListProps) => {
     const router = useRouter()
 
     const handleClick = (patientId: number) => {
@@ -42,6 +43,8 @@ export const PatientList = ({ data }: PatientListProps) => {
             dataSource={data}
             columns={COLUMNS}
             rowKey="id"
+            loading={loading}
+            bordered
             onRow={(record) => ({
                 onClick: () => handleClick(record.id),
                 style: { cursor: "pointer" }

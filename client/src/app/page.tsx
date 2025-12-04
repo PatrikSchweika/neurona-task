@@ -1,14 +1,27 @@
-import {PatientList} from "@/src/app/PatientList";
-import {query} from "@/src/graphql/setup/apollo-client";
-import {PATIENTS_QUERY} from "@/src/graphql/queries/patients";
+"use client";
 
-export default async function Index() {
-  const { data } = await query({ query: PATIENTS_QUERY })
+import {PatientList} from "@/src/app/PatientList";
+import {usePatients} from "@/src/graphql/queries/hooks";
+import {Button, Tooltip} from "antd";
+import {PlusOutlined} from "@ant-design/icons";
+
+export default function Index() {
+  const { data, loading } = usePatients()
 
   return (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 text-center">
           <h1 className="text-3xl">Patient list</h1>
-          <PatientList data={data?.patients ?? []} />
+          <PatientList data={data?.patients ?? []} loading={loading} />
+          <Tooltip title="Add patient" arrow>
+              <Button
+                  className="mx-auto"
+                  type="primary"
+                  href="/patients"
+                  shape="round"
+                  icon={<PlusOutlined />}
+                  size="large"
+              />
+          </Tooltip>
       </div>
   )
 }
