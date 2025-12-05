@@ -44,6 +44,27 @@ public class Mutation
         return result.Entity.ToDetail();
     }
 
+    public async Task<PatientDetail> RemovePatient(
+        int patientId,
+        AppDbContext context
+        )
+    {
+        var patient = await context.Patients
+            .Include(p => p.Diagnoses)
+            .AsTracking()
+            .FirstOrDefaultAsync(p => p.Id == patientId);
+
+        if (patient == null)
+        {
+            throw new PatientNotFoundException(patientId);
+        }
+
+        context.Patients.Remove(patient);
+        await context.SaveChangesAsync();
+
+        return patient.ToDetail();
+    }
+
     public async Task<IEnumerable<Diagnosis>> UpdateDiagnoses(
         int patientId,
         List<DiagnosisUpdate> diagnoses,
@@ -66,11 +87,11 @@ public class Mutation
         var diagnosesToAdd = diagnoses
             .Where(diagnosis => !diagnosis.Id.HasValue)
             .ToList();
-        
+
         var diagnosesToUpdate = diagnoses
             .Where(diagnosis => diagnosis.Id.HasValue && patient.Diagnoses.Any(d => d.Id == diagnosis.Id.Value))
             .ToList();
-        
+
         var diagnosesToRemove = patient.Diagnoses
             .Where(diagnosis => diagnosesToUpdate.All(diagnosisUpdate => diagnosisUpdate.Id != diagnosis.Id))
             .ToList();
