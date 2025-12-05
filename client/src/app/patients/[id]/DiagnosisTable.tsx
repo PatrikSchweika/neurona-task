@@ -50,11 +50,13 @@ export const DiagnosisTable = ({ diagnoses, loading, onDelete}: DiagnosisTablePr
                         <p className="text-gray-900 mb-2">{record.description}</p>
                         {record.imageUrl && (
                             <div>
-                                <img
-                                    src={record.imageUrl}
-                                    alt={record.title}
-                                    className="rounded-md shadow-sm object-contain"
-                                />
+                                <picture>
+                                    <img
+                                        src={record.imageUrl}
+                                        alt={record.title}
+                                        className="rounded-md shadow-sm object-contain"
+                                    />
+                                </picture>
                             </div>
                         )}
                     </div>

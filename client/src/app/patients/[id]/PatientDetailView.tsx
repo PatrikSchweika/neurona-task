@@ -27,7 +27,7 @@ export const PatientDetailView = ({ patientId }: PatientDetailViewProps) => {
 
         const newDiagnoses = patient.diagnoses
             .filter(d => d.id !== diagnosisId)
-            .map(({ __typename, ...diagnosis }) => ({
+            .map(({ __typename: _, ...diagnosis }) => ({
                 ...diagnosis
             }))
 

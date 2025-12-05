@@ -9,7 +9,7 @@ export default function Index() {
   const { data, loading } = usePatients()
 
   return (
-      <div className="flex flex-col gap-4 text-center">
+      <div className="flex flex-col gap-4">
           <h1 className="text-3xl">Patient list</h1>
           <PatientList data={data?.patients ?? []} loading={loading} />
           <Tooltip title="Add patient" arrow>
